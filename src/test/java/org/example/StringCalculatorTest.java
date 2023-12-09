@@ -82,4 +82,9 @@ class StringCalculatorTest {
         StringCalculator calculator = new StringCalculator();
         assertEquals(1999, calculator.add("1000,999,1001"));
     }
+    @Test
+    public void testMultiDelimiter() {
+        StringCalculator calculator = new StringCalculator();
+        assertEquals(6, calculator.add("//[***]\n1***2***3"));
+    }
 }

@@ -2,6 +2,8 @@ package org.example;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class StringCalculator {
 
@@ -17,14 +19,20 @@ public class StringCalculator {
             // Extract custom delimiter
             int delimiterEnd = numbers.indexOf("\n");
             if (delimiterEnd != -1) {
-                delimiter = numbers.substring(2, delimiterEnd);
+                String delimiterPrefix = numbers.substring(2, delimiterEnd);
+                // Check for arbitrary length delimiter enclosed in square brackets
+                if (delimiterPrefix.startsWith("[") && delimiterPrefix.endsWith("]")) {
+                    delimiter = delimiterPrefix.substring(1, delimiterPrefix.length() - 1);
+                } else {
+                    delimiter = delimiterPrefix;
+                }
                 // Update numbers string to exclude the delimiter definition
                 numbers = numbers.substring(delimiterEnd + 1);
             }
         }
 
-        // Split the input string by the delimiter, commas, and newline characters
-        String[] numArray = numbers.split("[,\n" + delimiter + "]");
+        // Split the input string by the delimiter
+        String[] numArray = numbers.split("\\Q" + delimiter + "\\E|,|\n");
 
         // Initialize sum to 0
         int sum = 0;
@@ -75,7 +83,7 @@ public class StringCalculator {
             System.out.println(calculator.add("1\n2,3")); // Output: 6
             System.out.println(calculator.add("//;\n1;2")); // Output: 3
             System.out.println(calculator.add("1000,999,1001")); // Output: 1999
-
+            System.out.println(calculator.add("//[***]\n1***2***3")); // Output: 6
         } catch (IllegalArgumentException e) {
             System.out.println("Exception: " + e.getMessage());
         }

@@ -77,4 +77,9 @@ class StringCalculatorTest {
         // Use assertEquals to check the exception message
         assertEquals("Negative numbers not allowed: [-3]", exception.getMessage());
     }
+    @Test
+    public void testGreaterOneK() {
+        StringCalculator calculator = new StringCalculator();
+        assertEquals(1999, calculator.add("1000,999,1001"));
+    }
 }

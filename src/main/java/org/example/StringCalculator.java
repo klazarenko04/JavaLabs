@@ -47,8 +47,11 @@ public class StringCalculator {
                 negativeNumbers.add(n);
             }
 
-            // Add the number to the sum
-            sum += n;
+            // Ignore numbers greater than 1000
+            if (n <= 1000) {
+                // Add the number to the sum
+                sum += n;
+            }
         }
 
         // If there are negative numbers, throw an exception with the list of negative numbers
@@ -65,14 +68,14 @@ public class StringCalculator {
         StringCalculator calculator = new StringCalculator();
 
         try {
-            System.out.println(calculator.add(""));
-            System.out.println(calculator.add("1"));
-            System.out.println(calculator.add("1,2"));
-            System.out.println(calculator.add("1,2,3"));
-            System.out.println(calculator.add("1\n2,3"));
-            System.out.println(calculator.add("//;\n1;2"));
+            System.out.println(calculator.add(""));      // Output: 0
+            System.out.println(calculator.add("1"));     // Output: 1
+            System.out.println(calculator.add("1,2"));   // Output: 3
+            System.out.println(calculator.add("1,2,3")); // Output: 6
+            System.out.println(calculator.add("1\n2,3")); // Output: 6
+            System.out.println(calculator.add("//;\n1;2")); // Output: 3
+            System.out.println(calculator.add("1000,999,1001")); // Output: 1999
 
-            System.out.println(calculator.add("1,2,-3"));
         } catch (IllegalArgumentException e) {
             System.out.println("Exception: " + e.getMessage());
         }

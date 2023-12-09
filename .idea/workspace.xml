@@ -59,7 +59,20 @@
       <recent name="org.example" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.StringCalculatorTest.testNegativeNumbers">
+  <component name="RunManager" selected="Gradle.StringCalculatorTest">
+    <configuration name="StringCalculator" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.example.StringCalculator" />
+      <module name="lab1.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.example.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="StringCalculatorTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -134,8 +147,9 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.StringCalculatorTest.testNegativeNumbers" />
         <item itemvalue="Gradle.StringCalculatorTest" />
+        <item itemvalue="Application.StringCalculator" />
+        <item itemvalue="Gradle.StringCalculatorTest.testNegativeNumbers" />
         <item itemvalue="Gradle.StringCalculatorTest.testMoreThanTwoNumbers" />
       </list>
     </recent_temporary>

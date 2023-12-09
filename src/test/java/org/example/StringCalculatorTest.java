@@ -61,4 +61,10 @@ class StringCalculatorTest {
         assertEquals(1, calculator.add("1\n"));
     }
 
+    @Test
+    public void testUserDelimiter() {
+        StringCalculator calculator = new StringCalculator();
+        assertEquals(8, calculator.add("//;\n1;2,3\n2"));
+    }
+    
 }

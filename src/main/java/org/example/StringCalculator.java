@@ -8,8 +8,20 @@ public class StringCalculator {
             return 0;
         }
 
-        // Split the input string by both commas and newline characters
-        String[] numArray = numbers.split("[,\n]");
+        // Check for user-defined delimiter
+        String delimiter = ",";
+        if (numbers.startsWith("//")) {
+            // Extract custom delimiter
+            int delimiterEnd = numbers.indexOf("\n");
+            if (delimiterEnd != -1) {
+                delimiter = numbers.substring(2, delimiterEnd);
+                // Update numbers string to exclude the delimiter definition
+                numbers = numbers.substring(delimiterEnd + 1);
+            }
+        }
+
+        // Split the input string by the delimiter, commas, and newline characters
+        String[] numArray = numbers.split("[,\n" + delimiter + "]");
 
         // Initialize sum to 0
         int sum = 0;
@@ -36,13 +48,14 @@ public class StringCalculator {
         StringCalculator calculator = new StringCalculator();
 
         try {
-            System.out.println(calculator.add(""));      // Output: 0
-            System.out.println(calculator.add("1"));     // Output: 1
-            System.out.println(calculator.add("1,2"));   // Output: 3
-            System.out.println(calculator.add("1,2,3")); // Output: 6
-            System.out.println(calculator.add("1\n2,3")); // Output: 6
+            System.out.println(calculator.add(""));
+            System.out.println(calculator.add("1"));
+            System.out.println(calculator.add("1,2"));
+            System.out.println(calculator.add("1,2,3"));
+            System.out.println(calculator.add("1\n2,3"));
+            System.out.println(calculator.add("//;\n1;2,3\n2"));
 
-            System.out.println(calculator.add("1,\n1"));
+
         } catch (IllegalArgumentException e) {
             System.out.println("Exception: " + e.getMessage());
         }

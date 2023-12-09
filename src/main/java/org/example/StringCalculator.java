@@ -1,5 +1,8 @@
 package org.example;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class StringCalculator {
 
     public int add(String numbers) {
@@ -26,6 +29,9 @@ public class StringCalculator {
         // Initialize sum to 0
         int sum = 0;
 
+        // List to store negative numbers
+        List<Integer> negativeNumbers = new ArrayList<>();
+
         // Iterate through the numbers and add them to the sum
         for (String num : numArray) {
             // Check for consecutive delimiters or empty values
@@ -35,8 +41,19 @@ public class StringCalculator {
 
             // Convert each number to an integer
             int n = Integer.parseInt(num);
+
+            // Check for negative numbers
+            if (n < 0) {
+                negativeNumbers.add(n);
+            }
+
             // Add the number to the sum
             sum += n;
+        }
+
+        // If there are negative numbers, throw an exception with the list of negative numbers
+        if (!negativeNumbers.isEmpty()) {
+            throw new IllegalArgumentException("Negative numbers not allowed: " + negativeNumbers);
         }
 
         // Return the sum
@@ -53,9 +70,9 @@ public class StringCalculator {
             System.out.println(calculator.add("1,2"));
             System.out.println(calculator.add("1,2,3"));
             System.out.println(calculator.add("1\n2,3"));
-            System.out.println(calculator.add("//;\n1;2,3\n2"));
+            System.out.println(calculator.add("//;\n1;2"));
 
-
+            System.out.println(calculator.add("1,2,-3"));
         } catch (IllegalArgumentException e) {
             System.out.println("Exception: " + e.getMessage());
         }

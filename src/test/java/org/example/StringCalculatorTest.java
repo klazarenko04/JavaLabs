@@ -45,4 +45,20 @@ class StringCalculatorTest {
         StringCalculator calculator = new StringCalculator();
         assertEquals(10, calculator.add("1,2,3,4"));
     }
+    @Test
+    public void testNewDelimiter() {
+        StringCalculator calculator = new StringCalculator();
+        assertEquals(6, calculator.add("1\n2\n3"));
+    }
+    @Test
+    public void testTwoDelimiters() {
+        StringCalculator calculator = new StringCalculator();
+        assertEquals(6, calculator.add("1\n2,3"));
+    }
+    @Test
+    public void testExtraDelimiter() {
+        StringCalculator calculator = new StringCalculator();
+        assertEquals(1, calculator.add("1\n"));
+    }
+
 }

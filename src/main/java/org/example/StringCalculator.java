@@ -16,15 +16,21 @@ public class StringCalculator {
         // Check for user-defined delimiter
         String delimiter = ",";
         if (numbers.startsWith("//")) {
-            // Extract custom delimiter
+            // Extract custom delimiter(s)
             int delimiterEnd = numbers.indexOf("\n");
             if (delimiterEnd != -1) {
                 String delimiterPrefix = numbers.substring(2, delimiterEnd);
-                // Check for arbitrary length delimiter enclosed in square brackets
+                // Check for multiple delimiters enclosed in square brackets
                 if (delimiterPrefix.startsWith("[") && delimiterPrefix.endsWith("]")) {
-                    delimiter = delimiterPrefix.substring(1, delimiterPrefix.length() - 1);
+                    // Use regex to extract multiple delimiters
+                    Matcher matcher = Pattern.compile("\\[(.*?)]").matcher(delimiterPrefix);
+                    List<String> delimiters = new ArrayList<>();
+                    while (matcher.find()) {
+                        delimiters.add(Pattern.quote(matcher.group(1)));
+                    }
+                    delimiter = String.join("|", delimiters);
                 } else {
-                    delimiter = delimiterPrefix;
+                    delimiter = Pattern.quote(delimiterPrefix);
                 }
                 // Update numbers string to exclude the delimiter definition
                 numbers = numbers.substring(delimiterEnd + 1);
@@ -32,7 +38,7 @@ public class StringCalculator {
         }
 
         // Split the input string by the delimiter
-        String[] numArray = numbers.split("\\Q" + delimiter + "\\E|,|\n");
+        String[] numArray = numbers.split(delimiter + "|,|\n");
 
         // Initialize sum to 0
         int sum = 0;
@@ -83,7 +89,8 @@ public class StringCalculator {
             System.out.println(calculator.add("1\n2,3")); // Output: 6
             System.out.println(calculator.add("//;\n1;2")); // Output: 3
             System.out.println(calculator.add("1000,999,1001")); // Output: 1999
-            System.out.println(calculator.add("//[***]\n1***2***3")); // Output: 6
+            System.out.println(calculator.add("//[***]\n1***2***3,1")); // Output: 6
+            System.out.println(calculator.add("//[***][**][*]\n1***23**11*1")); // Output: 6
         } catch (IllegalArgumentException e) {
             System.out.println("Exception: " + e.getMessage());
         }
